@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM || EDIT & REPLACE</title>
+</head>
+<body style="background-color: black; color: aliceblue;">
+    <ul class="lang">
+        <li>Javascript</li>
+    </ul>
+</body>
+<script>
+    // ------Solution 1-------------------
+    const createLang = (liName) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${liName}`;
+        // console.log(document.querySelector('.lang'))
+        document.querySelector('.lang').appendChild(li); // appendChild traverse the complete li to add append the child which is more lenthy and not a optimize way
+    }
+    createLang("Python")
+    createLang("TypeScript")
+
+    // ------Solution 2-----------------
+    const createOptiLang = (langName) => {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(langName));
+        document.querySelector('.lang').appendChild(li);
+    };
+    createOptiLang('GoLang')
+
+    // ------Edit-------------------
+    const replaceLang = (pos, langName) => {
+        const position = document.querySelector(`li:nth-child(${pos})`);
+        const newLi = document.createElement('li');
+        newLi.textContent = `${langName}`;
+        position.replaceWith(newLi);
+    }
+    replaceLang(3, 'javascript')
+
+    // ------Edit 2-------------------
+    const replaceLang2 = (pos, langName) => {
+        const position = document.querySelector(`li:nth-child(${pos})`);
+        position.outerHTML = `<li>${langName}</li>`; // not a good approach
+    }
+    replaceLang2(3, 'mojo')
+    
+    // ------remove-------------------
+    const removeLang = (pos) => {
+        const position = document.querySelector(`li:nth-child(${pos})`)
+        position.remove()
+    }
+    removeLang(3)
+</script>
+</html>
