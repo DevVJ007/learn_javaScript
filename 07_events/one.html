@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>htnml Events </title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h2>Amazing image</h2>
+    <div >
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+        <!-- avoid to use this way of event onClick -->
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" ></li>
+            <li><img width="200px" id="prayer"  src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+</body>
+<script>
+    // avoid this one also because it will less options/features
+    // document.getElementById('owl').onclick = () => {
+    //     alert("owl clicked")
+    // }
+
+    // give it aa read 
+    // type, timestamp, preventDefault, target, toEelement, srcElement, currentTarget, 
+    // clientX, clientY, offset, screenX, screenY (position related)
+    // keys( altKey, ctrlKey, shiftKey), keyCode
+// ------------------------------------------------------------------------------------------
+    // use this one for events
+    // document.querySelector('#owl').addEventListener("click", (e)=>{ // e is represent event object which we got from addEventListener which provides a lot of features
+    //     console.log(e);
+    // }, false) // false (bydefault)/true to stop propagation
+
+// ------------------------------------------------------------------------------------------
+
+    // event propagation
+    
+    // in case you are using same event on two/ more places
+    // type = event bubbling & event capturing
+    
+    // example
+    // document.getElementById('images').addEventListener('click', () => { // this will activate when click on ul items
+    //     console.log("images print");
+    // }, false)
+   
+    // document.getElementById('owl').addEventListener('click', () => { // this will activate when click on owl item but it will also trigger the images event
+    //     console.log("owl clicked");
+    // }, false) 
+
+    // the false bydefault behave bubbling : this behave trigger event goes from owl to images
+    // the true behave capturing : this behave trigger event from images to owl
+    // to stop propagation we can use e.stopPropagation()
+
+// ------------------------------------------------------------------------------------------
+
+    
+    // to stop default behavier we can use preventDefault()  for example to stop redirection after clicking on submit form it will stop redirection to api hit 
+    
+    // example
+    // document.getElementById('google').addEventListener('click', (e) => { // this will activate when click on owl item but it will also trigger the images event
+    //     e.preventDefault()
+    //     console.log("owl clicked");
+    //     e.stopPropagation()
+    // }, false)
+
+// ------------------------------------------------------------------------------------------
+
+    document.querySelector('#images').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // console.log(e.target);
+        // console.log(e.target.id);
+        // console.log(e.target.parentNode);
+        // const removeIt = e.target.parentNode;
+        // it can remove the whole list if we got clicked on the li 
+        // removeIt.remove(); 
+        // removeIt.parentNode.removeChild(removeIt)
+        // strict checked
+        console.log(e.target.tagName );
+        if(e.target.tagName === 'IMG' || e.target.tagName === 'A'){
+        const removeIt = e.target.parentNode;
+        removeIt.remove(); 
+        } else if (e.target.tagName === 'LI') {
+            e.target.remove()
+        }
+    }, false)
+    
+</script>
+</html>
